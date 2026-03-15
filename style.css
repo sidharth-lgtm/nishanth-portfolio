@@ -831,6 +831,7 @@ em {
   background: #080B12;
   overflow: hidden;
   position: relative;
+  padding-top: var(--nav-h);
 }
 
 .director__inner {
@@ -1818,7 +1819,7 @@ html {
 
 section[id],
 .director[id] {
-  scroll-margin-top: var(--nav-h);
+  scroll-margin-top: calc(var(--nav-h) + 20px);
 }
 
 /* 2. FIX: Work section — remove horizontal padding so index is full-width */

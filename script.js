@@ -82,7 +82,7 @@
       const target = document.querySelector(this.getAttribute('href'));
       if (!target) return;
       e.preventDefault();
-      lenis.scrollTo(target, { offset: -80, duration: 1.4 });
+      lenis.scrollTo(target, { offset: -92, duration: 1.4 });
     });
   });
 
