@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Nishanth Krishnan — Animation Director with 25 years of experience crafting cinematic worlds for film, television, and interactive media." />
+  <title>Nishanth Krishnan — Animation Director</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#hero" class="nav__logo">NK</a>
+      <ul class="nav__links">
+        <li><a href="#work"    class="nav__link">Work</a></li>
+        <li><a href="#about"   class="nav__link">About</a></li>
+        <li><a href="#clients" class="nav__link">Clients</a></li>
+        <li><a href="#contact" class="nav__link">Contact</a></li>
+      </ul>
+      <button class="nav__menu-btn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+    <!-- Mobile drawer -->
+    <div class="nav__drawer" id="navDrawer">
+      <ul class="nav__drawer-links">
+        <li><a href="#work"    class="nav__drawer-link">Work</a></li>
+        <li><a href="#about"   class="nav__drawer-link">About</a></li>
+        <li><a href="#clients" class="nav__drawer-link">Clients</a></li>
+        <li><a href="#contact" class="nav__drawer-link">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section class="hero" id="hero">
+    <!-- Letterbox bars -->
+    <div class="hero__bar hero__bar--top"    id="barTop"></div>
+    <div class="hero__bar hero__bar--bottom" id="barBottom"></div>
+
+    <!-- Background video -->
+    <div class="hero__video-wrap">
+      <video
+        class="hero__video"
+        autoplay muted loop playsinline
+        poster="assets/hero-poster.jpg"
+      >
+        <source src="assets/reel.mp4" type="video/mp4" />
+      </video>
+      <div class="hero__scrim"></div>
+      <!-- Film grain overlay -->
+      <canvas class="hero__grain" id="grainCanvas" aria-hidden="true"></canvas>
+    </div>
+
+    <!-- Hero content -->
+    <div class="hero__content" id="heroContent">
+      <h1 class="hero__name" id="heroName">
+        <span class="hero__name-line">Nishanth</span>
+        <span class="hero__name-line">Krishnan</span>
+      </h1>
+      <span class="hero__title label" id="heroTitle">Animation Director</span>
+      <p class="hero__tagline" id="heroTagline">
+        <span class="hero__tag">25 Years</span>
+        <span class="hero__dot">·</span>
+        <span class="hero__tag">Netflix</span>
+        <span class="hero__dot">·</span>
+        <span class="hero__tag">Disney</span>
+        <span class="hero__dot">·</span>
+        <span class="hero__tag">DreamWorks</span>
+        <span class="hero__dot">·</span>
+        <span class="hero__tag">DNEG</span>
+      </p>
+      <a href="#work" class="btn btn--gold" id="heroCta">View Work</a>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="hero__scroll-hint" id="scrollHint">
+      <span class="hero__scroll-line"></span>
+      <span class="hero__scroll-text">Scroll</span>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WORK
+  ============================================================ -->
+  <section class="work" id="work">
+
+    <div class="work__header">
+      <span class="work__slate-label">Selected Work</span>
+    </div>
+
+    <div class="work__grid">
+
+      <!-- ── CARD A: Row 1, cols 1–2 (2fr+1fr), tall 4:5 ── -->
+      <article class="work__card work__card--a" data-work-index="0">
+        <div class="work__card-media" data-title="Ridley Jones">
+          <img
+            src="assets/work-ridley.jpg"
+            alt="Ridley Jones — Netflix animated series"
+            loading="lazy"
+            onerror="this.classList.add('img-error')"
+          />
+          <video class="work__card-video" muted loop playsinline>
+            <source src="assets/preview-ridley.mp4" type="video/mp4" />
+          </video>
+          <div class="work__card-overlay">
+            <span class="work__card-studio">Netflix &nbsp;·&nbsp; Season 1 &amp; 2</span>
+            <h3 class="work__card-title">Ridley Jones</h3>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── CARD B: Row 1, col 3 (1fr), 16:9 ── -->
+      <article class="work__card work__card--b" data-work-index="1">
+        <div class="work__card-media" data-title="Doc McStuffins">
+          <img
+            src="assets/work-doc.jpg"
+            alt="Doc McStuffins — Disney animated series"
+            loading="lazy"
+            onerror="this.classList.add('img-error')"
+          />
+          <video class="work__card-video" muted loop playsinline>
+            <source src="assets/preview-doc.mp4" type="video/mp4" />
+          </video>
+          <div class="work__card-overlay">
+            <span class="work__card-studio">Disney &nbsp;·&nbsp; Season 5</span>
+            <h3 class="work__card-title">Doc McStuffins</h3>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── CARD C: Row 2, col 1 (2fr), 16:9 ── -->
+      <article class="work__card work__card--c" data-work-index="2">
+        <div class="work__card-media" data-title="Alvin &amp; the Chipmunks">
+          <img
+            src="assets/work-alvin.jpg"
+            alt="Alvin and the Chipmunks — Bagdasarian Productions"
+            loading="lazy"
+            onerror="this.classList.add('img-error')"
+          />
+          <video class="work__card-video" muted loop playsinline>
+            <source src="assets/preview-alvin.mp4" type="video/mp4" />
+          </video>
+          <div class="work__card-overlay">
+            <span class="work__card-studio">Bagdasarian &nbsp;·&nbsp; Seasons 1–4</span>
+            <h3 class="work__card-title">Alvin &amp; the Chipmunks</h3>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── CARD D: Row 2, cols 2–3 (1fr+1fr), tall 4:5 ── -->
+      <article class="work__card work__card--d" data-work-index="3">
+        <div class="work__card-media" data-title="How to Train Your Dragon">
+          <img
+            src="assets/work-httyd.jpg"
+            alt="How to Train Your Dragon — DreamWorks"
+            loading="lazy"
+            onerror="this.classList.add('img-error')"
+          />
+          <video class="work__card-video" muted loop playsinline>
+            <source src="assets/preview-httyd.mp4" type="video/mp4" />
+          </video>
+          <div class="work__card-overlay">
+            <span class="work__card-studio">DreamWorks &nbsp;·&nbsp; Riders of Berk</span>
+            <h3 class="work__card-title">How to Train Your Dragon</h3>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── CARD E: Row 3, full-width cinematic banner 21:9 ── -->
+      <article class="work__card work__card--e" data-work-index="4">
+        <div class="work__card-media" data-title="Sonic Boom">
+          <img
+            src="assets/work-sonic.jpg"
+            alt="Sonic Boom — Sega Productions"
+            loading="lazy"
+            onerror="this.classList.add('img-error')"
+          />
+          <video class="work__card-video" muted loop playsinline>
+            <source src="assets/preview-sonic.mp4" type="video/mp4" />
+          </video>
+          <div class="work__card-overlay">
+            <span class="work__card-studio">Sega Productions &nbsp;·&nbsp; Technicolor India</span>
+            <h3 class="work__card-title">Sonic Boom</h3>
+          </div>
+        </div>
+      </article>
+
+    </div><!-- /work__grid -->
+  </section>
+
+  <div class="section-rule"></div>
+
+  <!-- ============================================================
+       ABOUT
+  ============================================================ -->
+  <section class="about section" id="about">
+    <div class="about__inner">
+
+      <!-- Left: Portrait -->
+      <div class="about__portrait reveal-left">
+        <div class="about__portrait-frame">
+          <img src="assets/portrait.jpg" alt="Nishanth Krishnan — Animation Director" />
+          <div class="about__portrait-accent"></div>
+        </div>
+      </div>
+
+      <!-- Right: Statement -->
+      <div class="about__statement">
+        <span class="label reveal-up">Director Statement</span>
+        <h2 class="about__heading reveal-up">
+          25 years of bringing<br><em>characters to life.</em>
+        </h2>
+        <div class="about__body reveal-up">
+          <p>
+            I've spent 25 years inside the frame — first as a 2D
+            animator in Chennai, learning to give weight and soul
+            to drawn characters, and eventually as the person
+            responsible for the vision that holds an entire
+            production together.
+          </p>
+          <p>
+            From Technicolor India to Brown Bag Films in Dublin,
+            from studios in Indonesia to Redefine DNEG in Hyderabad —
+            I've directed animation for Netflix, Disney, DreamWorks
+            and Sega. The scale changes. The question never does:
+            does this character feel alive?
+          </p>
+          <p>
+            Currently Animation Director at Redefine DNEG, Hyderabad.
+            Available for international projects and overseas
+            supervision roles.
+          </p>
+        </div>
+
+        <!-- Stats row -->
+        <div class="about__stats reveal-up">
+          <div class="about__stat">
+            <span class="about__stat-num">25</span>
+            <span class="about__stat-label label">Years</span>
+          </div>
+          <div class="about__stat">
+            <span class="about__stat-num">40+</span>
+            <span class="about__stat-label label">Projects</span>
+          </div>
+          <div class="about__stat">
+            <span class="about__stat-num">4+</span>
+            <span class="about__stat-label label">Studios</span>
+          </div>
+          <div class="about__stat">
+            <span class="about__stat-num">3</span>
+            <span class="about__stat-label label">Continents</span>
+          </div>
+        </div>
+
+        <a href="assets/nishanth-krishnan-cv.pdf" class="btn btn--outline reveal-up" target="_blank" rel="noopener">
+          Download CV
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-rule"></div>
+
+  <!-- ============================================================
+       CLIENTS
+  ============================================================ -->
+  <section class="clients section" id="clients">
+    <div class="section__header reveal-up">
+      <span class="label">Studio Collaborations</span>
+      <h2 class="section__title">25 years of<br><em>trusted partnerships</em></h2>
+    </div>
+
+    <div class="clients__logos reveal-up">
+      <div class="clients__logo-item">
+        <span class="clients__logo-name">Netflix</span>
+      </div>
+      <div class="clients__logo-item">
+        <span class="clients__logo-name">Disney</span>
+      </div>
+      <div class="clients__logo-item">
+        <span class="clients__logo-name">DreamWorks</span>
+      </div>
+      <div class="clients__logo-item">
+        <span class="clients__logo-name">Sega</span>
+      </div>
+      <div class="clients__logo-item">
+        <span class="clients__logo-name">DNEG</span>
+      </div>
+      <div class="clients__logo-item">
+        <span class="clients__logo-name">Technicolor</span>
+      </div>
+      <div class="clients__logo-item">
+        <span class="clients__logo-name">Brown Bag Films</span>
+      </div>
+      <div class="clients__logo-item">
+        <span class="clients__logo-name">Bagdasarian Prods</span>
+      </div>
+    </div>
+
+    <!-- Career Highlights -->
+    <div class="awards reveal-up">
+      <span class="label awards__label">Career Highlights</span>
+      <div class="awards__list">
+        <div class="awards__item">
+          <span class="awards__year label">2022–</span>
+          <span class="awards__title">Animation Director — Redefine DNEG, Hyderabad</span>
+        </div>
+        <div class="awards__item">
+          <span class="awards__year label">2017</span>
+          <span class="awards__title">Animation Director — Ridley Jones (Netflix), Brown Bag Films, Dublin</span>
+        </div>
+        <div class="awards__item">
+          <span class="awards__year label">2013</span>
+          <span class="awards__title">Sequence Director — How to Train Your Dragon (DreamWorks Riders of Berk)</span>
+        </div>
+        <div class="awards__item">
+          <span class="awards__year label">2010</span>
+          <span class="awards__title">Lead Animator / Director — Sonic Boom, Alvin &amp; the Chipmunks (Technicolor India)</span>
+        </div>
+        <div class="awards__item">
+          <span class="awards__year label">2012</span>
+          <span class="awards__title">Animation Supervisor — Doc McStuffins Season 5 (Disney Television)</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="section-rule"></div>
+
+  <!-- ============================================================
+       CONTACT
+  ============================================================ -->
+  <section class="contact section" id="contact">
+    <div class="contact__bg">
+      <img src="assets/contact-bg.jpg" alt="" aria-hidden="true" loading="lazy" />
+      <div class="contact__scrim"></div>
+    </div>
+
+    <div class="contact__inner">
+      <span class="label reveal-up">Get In Touch</span>
+      <h2 class="contact__heading reveal-up">
+        Let's build<br><em>something lasting.</em>
+      </h2>
+      <p class="contact__sub reveal-up">
+        Available for feature films, episodic series, and select commercial projects.
+      </p>
+
+      <a href="mailto:nishdbloke@gmail.com" class="contact__email reveal-up">
+        nishdbloke@gmail.com
+      </a>
+
+      <div class="contact__links reveal-up">
+        <a href="#" class="contact__social-link" target="_blank" rel="noopener">Vimeo</a>
+        <span class="contact__divider">·</span>
+        <a href="https://linkedin.com/in/nishdbloke" class="contact__social-link" target="_blank" rel="noopener">LinkedIn</a>
+        <span class="contact__divider">·</span>
+        <a href="#" class="contact__social-link" target="_blank" rel="noopener">IMDb</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <span class="footer__copy">© 2025 Nishanth Krishnan. All rights reserved.</span>
+      <span class="footer__made label">Animation Director</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
