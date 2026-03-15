@@ -22,6 +22,40 @@
 </head>
 <body>
 
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-follower" id="cursorFollower" aria-hidden="true"></div>
+
+  <!-- ============================================================
+       PASSWORD GATE
+  ============================================================ -->
+  <div class="gate" id="gate" role="dialog" aria-label="Portfolio access">
+    <div class="gate__content">
+      <span class="gate__prod">Production No. NK·001 &nbsp;—&nbsp; 2026</span>
+      <div class="gate__logo">NK</div>
+      <h1 class="gate__name">Nishanth Krishnan</h1>
+      <p class="gate__role">Animation Director</p>
+      <div class="gate__divider"></div>
+      <p class="gate__access-label">Access Restricted — Enter Code</p>
+      <div class="gate__field">
+        <input
+          type="password"
+          id="gateInput"
+          class="gate__input"
+          maxlength="8"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="· · · ·"
+          aria-label="Access code"
+        />
+        <button class="gate__btn" id="gateBtn" aria-label="Submit">→</button>
+      </div>
+      <p class="gate__error" id="gateError" aria-live="polite">Invalid access code</p>
+      <a href="mailto:nishdbloke@gmail.com" class="gate__contact">Request access · nishdbloke@gmail.com</a>
+    </div>
+    <div class="gate__countdown" id="gateCountdown"></div>
+  </div>
+
   <!-- ============================================================
        NAVIGATION
   ============================================================ -->
@@ -89,7 +123,14 @@
         <span class="hero__dot">·</span>
         <span class="hero__tag">DNEG</span>
       </p>
-      <a href="#work" class="btn btn--gold" id="heroCta">View Work</a>
+      <div class="hero__ctas" id="heroCta">
+        <a href="#work" class="btn btn--gold">View Work</a>
+        <span class="hero__cta-sep" aria-hidden="true"></span>
+        <button class="hero__reel-btn" id="heroReelBtn" type="button">
+          <span class="hero__reel-icon">&#9654;</span>
+          <span>Watch Reel</span>
+        </button>
+      </div>
     </div>
 
     <!-- Scroll indicator -->
@@ -106,177 +147,249 @@
 
     <div class="work__header">
       <span class="work__slate-label">Selected Work</span>
+      <span class="work__slate-count">5 Projects</span>
     </div>
 
-    <div class="work__grid">
+    <!-- ── FILM ARCHIVE INDEX ── -->
+    <div class="work__index">
 
-      <!-- ── CARD A: Row 1, cols 1–2 (2fr+1fr), tall 4:5 ── -->
-      <article class="work__card work__card--a" data-work-index="0">
-        <div class="work__card-media" data-title="Ridley Jones">
-          <img
-            src="assets/work-ridley.jpg"
-            alt="Ridley Jones — Netflix animated series"
-            loading="lazy"
-            onerror="this.classList.add('img-error')"
-          />
-          <video class="work__card-video" muted loop playsinline>
-            <source src="assets/preview-ridley.mp4" type="video/mp4" />
-          </video>
-          <div class="work__card-overlay">
-            <span class="work__card-studio">Netflix &nbsp;·&nbsp; Season 1 &amp; 2</span>
-            <h3 class="work__card-title">Ridley Jones</h3>
+      <!-- Fullscreen bg images — one per project, revealed on hover -->
+      <div class="work__index-bg" aria-hidden="true">
+        <div class="work__index-img" data-index="0" style="background-image:url('assets/work-ridley.jpg')"></div>
+        <div class="work__index-img" data-index="1" style="background-image:url('assets/work-doc.jpg')"></div>
+        <div class="work__index-img" data-index="2" style="background-image:url('assets/work-alvin.jpg')"></div>
+        <div class="work__index-img" data-index="3" style="background-image:url('assets/work-httyd.jpg')"></div>
+        <div class="work__index-img" data-index="4" style="background-image:url('assets/work-sonic.jpg')"></div>
+      </div>
+      <div class="work__index-scrim" aria-hidden="true"></div>
+
+      <!-- Project list -->
+      <div class="work__index-list">
+
+        <div class="work__index-item" data-img="0">
+          <span class="work__index-num">01</span>
+          <div class="work__index-center">
+            <h3 class="work__index-title">Ridley Jones</h3>
+            <span class="work__index-role">Animation Director</span>
           </div>
-        </div>
-      </article>
-
-      <!-- ── CARD B: Row 1, col 3 (1fr), 16:9 ── -->
-      <article class="work__card work__card--b" data-work-index="1">
-        <div class="work__card-media" data-title="Doc McStuffins">
-          <img
-            src="assets/work-doc.jpg"
-            alt="Doc McStuffins — Disney animated series"
-            loading="lazy"
-            onerror="this.classList.add('img-error')"
-          />
-          <video class="work__card-video" muted loop playsinline>
-            <source src="assets/preview-doc.mp4" type="video/mp4" />
-          </video>
-          <div class="work__card-overlay">
-            <span class="work__card-studio">Disney &nbsp;·&nbsp; Season 5</span>
-            <h3 class="work__card-title">Doc McStuffins</h3>
+          <div class="work__index-meta">
+            <span class="work__index-studio">Netflix</span>
+            <span class="work__index-year">Season 1 &amp; 2</span>
           </div>
+          <span class="work__index-arrow">→</span>
         </div>
-      </article>
 
-      <!-- ── CARD C: Row 2, col 1 (2fr), 16:9 ── -->
-      <article class="work__card work__card--c" data-work-index="2">
-        <div class="work__card-media" data-title="Alvin &amp; the Chipmunks">
-          <img
-            src="assets/work-alvin.jpg"
-            alt="Alvin and the Chipmunks — Bagdasarian Productions"
-            loading="lazy"
-            onerror="this.classList.add('img-error')"
-          />
-          <video class="work__card-video" muted loop playsinline>
-            <source src="assets/preview-alvin.mp4" type="video/mp4" />
-          </video>
-          <div class="work__card-overlay">
-            <span class="work__card-studio">Bagdasarian &nbsp;·&nbsp; Seasons 1–4</span>
-            <h3 class="work__card-title">Alvin &amp; the Chipmunks</h3>
+        <div class="work__index-item" data-img="1">
+          <span class="work__index-num">02</span>
+          <div class="work__index-center">
+            <h3 class="work__index-title">Doc McStuffins</h3>
+            <span class="work__index-role">Animation Supervisor</span>
           </div>
-        </div>
-      </article>
-
-      <!-- ── CARD D: Row 2, cols 2–3 (1fr+1fr), tall 4:5 ── -->
-      <article class="work__card work__card--d" data-work-index="3">
-        <div class="work__card-media" data-title="How to Train Your Dragon">
-          <img
-            src="assets/work-httyd.jpg"
-            alt="How to Train Your Dragon — DreamWorks"
-            loading="lazy"
-            onerror="this.classList.add('img-error')"
-          />
-          <video class="work__card-video" muted loop playsinline>
-            <source src="assets/preview-httyd.mp4" type="video/mp4" />
-          </video>
-          <div class="work__card-overlay">
-            <span class="work__card-studio">DreamWorks &nbsp;·&nbsp; Riders of Berk</span>
-            <h3 class="work__card-title">How to Train Your Dragon</h3>
+          <div class="work__index-meta">
+            <span class="work__index-studio">Disney</span>
+            <span class="work__index-year">Season 5</span>
           </div>
+          <span class="work__index-arrow">→</span>
         </div>
-      </article>
 
-      <!-- ── CARD E: Row 3, full-width cinematic banner 21:9 ── -->
-      <article class="work__card work__card--e" data-work-index="4">
-        <div class="work__card-media" data-title="Sonic Boom">
-          <img
-            src="assets/work-sonic.jpg"
-            alt="Sonic Boom — Sega Productions"
-            loading="lazy"
-            onerror="this.classList.add('img-error')"
-          />
-          <video class="work__card-video" muted loop playsinline>
-            <source src="assets/preview-sonic.mp4" type="video/mp4" />
-          </video>
-          <div class="work__card-overlay">
-            <span class="work__card-studio">Sega Productions &nbsp;·&nbsp; Technicolor India</span>
-            <h3 class="work__card-title">Sonic Boom</h3>
+        <div class="work__index-item" data-img="2">
+          <span class="work__index-num">03</span>
+          <div class="work__index-center">
+            <h3 class="work__index-title">Alvin &amp; the Chipmunks</h3>
+            <span class="work__index-role">Lead Animator</span>
           </div>
+          <div class="work__index-meta">
+            <span class="work__index-studio">Bagdasarian</span>
+            <span class="work__index-year">Seasons 1–4</span>
+          </div>
+          <span class="work__index-arrow">→</span>
         </div>
-      </article>
 
-    </div><!-- /work__grid -->
+        <div class="work__index-item" data-img="3">
+          <span class="work__index-num">04</span>
+          <div class="work__index-center">
+            <h3 class="work__index-title">How to Train Your Dragon</h3>
+            <span class="work__index-role">Sequence Director</span>
+          </div>
+          <div class="work__index-meta">
+            <span class="work__index-studio">DreamWorks</span>
+            <span class="work__index-year">Riders of Berk</span>
+          </div>
+          <span class="work__index-arrow">→</span>
+        </div>
+
+        <div class="work__index-item" data-img="4">
+          <span class="work__index-num">05</span>
+          <div class="work__index-center">
+            <h3 class="work__index-title">Sonic Boom</h3>
+            <span class="work__index-role">Lead Animator / Director</span>
+          </div>
+          <div class="work__index-meta">
+            <span class="work__index-studio">Sega · Technicolor</span>
+            <span class="work__index-year">Indonesia &amp; India</span>
+          </div>
+          <span class="work__index-arrow">→</span>
+        </div>
+
+      </div><!-- /work__index-list -->
+    </div><!-- /work__index -->
   </section>
+
+  <!-- ============================================================
+       CREDITS TICKER — Full filmography
+  ============================================================ -->
+  <div class="ticker-wrap" aria-hidden="true">
+    <span class="ticker__label">Filmography</span>
+    <div class="ticker">
+      <div class="ticker__track">
+        <span class="ticker__item">Ridley Jones</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Doc McStuffins</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">How to Train Your Dragon</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Sonic Boom</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Alvin &amp; the Chipmunks</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Barbie in the Pink Shoes</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Angel Wars</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Higgly Town Heroes</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">WallyKazam</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">The 99</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">MARVI</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Hip Hop Fables</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Deep</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Superbook 3D</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Zoo Lane</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Pablo — The Little Redfox</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Ethelbert</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Talis and the Thousand Tasks</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Jasper the Penguin</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">First Fear</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Kiddo — The Super Truck</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Vampires Pirates &amp; Aliens</span><span class="ticker__sep">·</span>
+        <!-- Duplicate for seamless loop -->
+        <span class="ticker__item">Ridley Jones</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Doc McStuffins</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">How to Train Your Dragon</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Sonic Boom</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Alvin &amp; the Chipmunks</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Barbie in the Pink Shoes</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Angel Wars</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Higgly Town Heroes</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">WallyKazam</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">The 99</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">MARVI</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Hip Hop Fables</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Deep</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Superbook 3D</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Zoo Lane</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Pablo — The Little Redfox</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Ethelbert</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Talis and the Thousand Tasks</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Jasper the Penguin</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">First Fear</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Kiddo — The Super Truck</span><span class="ticker__sep">·</span>
+        <span class="ticker__item">Vampires Pirates &amp; Aliens</span><span class="ticker__sep">·</span>
+      </div>
+    </div>
+  </div>
 
   <div class="section-rule"></div>
 
   <!-- ============================================================
-       ABOUT
+       ABOUT — Director's Credit
   ============================================================ -->
-  <section class="about section" id="about">
-    <div class="about__inner">
+  <section class="director" id="about">
+    <div class="director__inner">
 
-      <!-- Left: Portrait -->
-      <div class="about__portrait reveal-left">
-        <div class="about__portrait-frame">
-          <img src="assets/portrait.jpg" alt="Nishanth Krishnan — Animation Director" />
-          <div class="about__portrait-accent"></div>
-        </div>
+      <!-- Left: Portrait — bleeds into dark background -->
+      <div class="director__portrait reveal-left">
+        <img
+          src="assets/nishanth-portrait.jpg"
+          alt="Nishanth Krishnan — Animation Director"
+        />
+        <!-- Vertical role label -->
+        <span class="director__portrait-role">Animation Director</span>
       </div>
 
-      <!-- Right: Statement -->
-      <div class="about__statement">
-        <span class="label reveal-up">Director Statement</span>
-        <h2 class="about__heading reveal-up">
-          25 years of bringing<br><em>characters to life.</em>
-        </h2>
-        <div class="about__body reveal-up">
-          <p>
-            I've spent 25 years inside the frame — first as a 2D
-            animator in Chennai, learning to give weight and soul
-            to drawn characters, and eventually as the person
-            responsible for the vision that holds an entire
-            production together.
-          </p>
-          <p>
-            From Technicolor India to Brown Bag Films in Dublin,
-            from studios in Indonesia to Redefine DNEG in Hyderabad —
-            I've directed animation for Netflix, Disney, DreamWorks
-            and Sega. The scale changes. The question never does:
-            does this character feel alive?
-          </p>
-          <p>
-            Currently Animation Director at Redefine DNEG, Hyderabad.
-            Available for international projects and overseas
-            supervision roles.
-          </p>
-        </div>
+      <!-- Right: Profile -->
+      <div class="director__profile">
 
-        <!-- Stats row -->
-        <div class="about__stats reveal-up">
-          <div class="about__stat">
-            <span class="about__stat-num">25</span>
-            <span class="about__stat-label label">Years</span>
+        <!-- Label -->
+        <span class="label director__label reveal-up">Director Profile</span>
+
+        <!-- The one quote that says everything -->
+        <blockquote class="director__quote reveal-up">
+          <em>"Does this character<br>feel alive?"</em>
+        </blockquote>
+
+        <!-- Single distilled statement -->
+        <p class="director__statement reveal-up">
+          25 years inside the frame. From 2D animation in Chennai to
+          directing for Netflix and DreamWorks — across three continents,
+          across every format. The question that drives everything
+          has never changed.
+        </p>
+
+        <!-- Three pillars — big, scannable -->
+        <div class="director__pillars reveal-up">
+          <div class="director__pillar">
+            <span class="director__pillar-num">25</span>
+            <span class="director__pillar-unit">YRS</span>
+            <span class="director__pillar-label">Experience</span>
           </div>
-          <div class="about__stat">
-            <span class="about__stat-num">40+</span>
-            <span class="about__stat-label label">Projects</span>
+          <div class="director__pillar">
+            <span class="director__pillar-num">40+</span>
+            <span class="director__pillar-unit"></span>
+            <span class="director__pillar-label">Productions</span>
           </div>
-          <div class="about__stat">
-            <span class="about__stat-num">4+</span>
-            <span class="about__stat-label label">Studios</span>
-          </div>
-          <div class="about__stat">
-            <span class="about__stat-num">3</span>
-            <span class="about__stat-label label">Continents</span>
+          <div class="director__pillar">
+            <span class="director__pillar-num">3</span>
+            <span class="director__pillar-unit"></span>
+            <span class="director__pillar-label">Continents</span>
           </div>
         </div>
 
-        <a href="assets/nishanth-krishnan-cv.pdf" class="btn btn--outline reveal-up" target="_blank" rel="noopener">
-          Download CV
-        </a>
+        <!-- Career timeline — year dots, not paragraphs -->
+        <div class="director__timeline reveal-up">
+          <div class="director__timeline-item">
+            <span class="director__timeline-year">1999</span>
+            <span class="director__timeline-bar"></span>
+            <span class="director__timeline-role">Animator · Chennai</span>
+          </div>
+          <div class="director__timeline-item">
+            <span class="director__timeline-year">2006</span>
+            <span class="director__timeline-bar"></span>
+            <span class="director__timeline-role">Supervisor · Technicolor India</span>
+          </div>
+          <div class="director__timeline-item">
+            <span class="director__timeline-year">2013</span>
+            <span class="director__timeline-bar"></span>
+            <span class="director__timeline-role">Sequence Director · DreamWorks / Sega</span>
+          </div>
+          <div class="director__timeline-item">
+            <span class="director__timeline-year">2017</span>
+            <span class="director__timeline-bar"></span>
+            <span class="director__timeline-role">Animation Director · Brown Bag Films, Dublin</span>
+          </div>
+          <div class="director__timeline-item director__timeline-item--current">
+            <span class="director__timeline-year">2022</span>
+            <span class="director__timeline-bar"></span>
+            <span class="director__timeline-role">Animation Director · Redefine DNEG, Hyderabad</span>
+          </div>
+        </div>
+
+        <!-- CTAs -->
+        <div class="director__ctas reveal-up">
+          <a href="assets/nishanth-krishnan-resume.pdf" class="btn btn--gold" download="Nishanth_Krishnan_Resume.pdf">
+            Download Resume
+          </a>
+          <a href="assets/nishanth-krishnan-cover.pdf" class="director__dl-link" download="Nishanth_Krishnan_CoverLetter.pdf">
+            + Cover Letter
+          </a>
+          <a href="mailto:nishdbloke@gmail.com" class="director__contact-link">
+            nishdbloke@gmail.com
+          </a>
+        </div>
+
       </div>
-
     </div>
   </section>
 
@@ -386,10 +499,39 @@
   ============================================================ -->
   <footer class="footer">
     <div class="footer__inner">
-      <span class="footer__copy">© 2025 Nishanth Krishnan. All rights reserved.</span>
-      <span class="footer__made label">Animation Director</span>
+      <div class="footer__brand">
+        <span class="footer__logo">NK</span>
+        <span class="footer__tagline">Animation Director</span>
+      </div>
+      <div class="footer__center">
+        <span class="footer__copy">© 2026 Nishanth Krishnan. All rights reserved.</span>
+      </div>
+      <nav class="footer__links" aria-label="Footer links">
+        <a href="mailto:nishdbloke@gmail.com" class="footer__link">Email</a>
+        <a href="https://linkedin.com/in/nishdbloke" class="footer__link" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="#work" class="footer__link">Work</a>
+      </nav>
     </div>
   </footer>
+
+  <!-- ============================================================
+       REEL MODAL
+  ============================================================ -->
+  <div class="reel-modal" id="reelModal" aria-hidden="true" role="dialog" aria-label="Direction Reel">
+    <div class="reel-modal__backdrop" id="reelBackdrop"></div>
+    <div class="reel-modal__inner">
+      <div class="reel-modal__top">
+        <span class="reel-modal__title">Direction Reel &nbsp;·&nbsp; Nishanth Krishnan</span>
+        <button class="reel-modal__close" id="reelClose" aria-label="Close reel">✕ &nbsp;Close</button>
+      </div>
+      <div class="reel-modal__screen">
+        <video id="reelVideo" class="reel-modal__video" controls playsinline>
+          <source src="assets/reel.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <p class="reel-modal__caption">25 Years · Netflix · Disney · DreamWorks · DNEG</p>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

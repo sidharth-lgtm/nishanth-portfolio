@@ -223,7 +223,7 @@
           ease: 'power3.out',
           scrollTrigger: {
             trigger: el,
-            start: 'top 88%',
+            start: 'top 95%',
             once: true,
           },
         }
@@ -237,14 +237,15 @@
   /* ---------------------------------------------------------------
      WORK — Slate label reveal
   --------------------------------------------------------------- */
-  gsap.to('.work__slate-label', {
+  gsap.to(['.work__slate-label', '.work__slate-count'], {
     opacity: 1,
     y: 0,
     duration: 0.7,
     ease: 'power3.out',
+    stagger: 0.1,
     scrollTrigger: {
       trigger: '#work',
-      start: 'top 85%',
+      start: 'top 95%',
       once: true,
     },
   });
@@ -260,7 +261,7 @@
     stagger: 0.12,
     scrollTrigger: {
       trigger: '.work__grid',
-      start: 'top 85%',
+      start: 'top 95%',
       once: true,
     },
   });
@@ -287,6 +288,29 @@
           video.currentTime = 0;
         },
       });
+    });
+  });
+
+  /* ---------------------------------------------------------------
+     WORK CARDS — 3D mouse-tracking tilt
+  --------------------------------------------------------------- */
+  document.querySelectorAll('.work__card').forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      const rx = ((y - cy) / cy) * -5;
+      const ry = ((x - cx) / cx) * 5;
+      card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
+      card.style.transition = 'transform 0.1s ease';
+      card.style.boxShadow = '0 20px 60px rgba(200,169,110,0.15)';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+      card.style.transition = 'transform 0.5s cubic-bezier(0.23,1,0.32,1)';
+      card.style.boxShadow = 'none';
     });
   });
 
@@ -344,14 +368,14 @@
   /* ---------------------------------------------------------------
      CLIENTS — Stats counter animation
   --------------------------------------------------------------- */
-  document.querySelectorAll('.about__stat-num').forEach((el) => {
+  document.querySelectorAll('.about__stat-num, .director__pillar-num').forEach((el) => {
     const target = parseFloat(el.textContent.replace('+', '').replace('k', ''));
     const hasSuffix = el.textContent.includes('+');
     const isDecimal = el.textContent.includes('.');
 
     ScrollTrigger.create({
       trigger: el,
-      start: 'top 85%',
+      start: 'top 95%',
       once: true,
       onEnter: () => {
         const obj = { val: 0 };
@@ -382,7 +406,7 @@
       ease: 'power3.out',
       scrollTrigger: {
         trigger: '.awards__list',
-        start: 'top 85%',
+        start: 'top 95%',
         once: true,
       },
     }
@@ -420,7 +444,7 @@
       ease: 'power2.out',
       scrollTrigger: {
         trigger: '.clients__logos',
-        start: 'top 85%',
+        start: 'top 95%',
         once: true,
       },
     }
@@ -452,3 +476,211 @@
   });
 
 })();
+
+
+/* ================================================================
+   PASSWORD GATE
+================================================================ */
+(function () {
+  var gate      = document.getElementById('gate');
+  var input     = document.getElementById('gateInput');
+  var btn       = document.getElementById('gateBtn');
+  var errorEl   = document.getElementById('gateError');
+  var countdown = document.getElementById('gateCountdown');
+  if (!gate) return;
+
+  var PASSWORD = '2222';
+
+  /* Already unlocked this session — skip gate instantly */
+  if (sessionStorage.getItem('nk-unlocked')) {
+    gate.style.display = 'none';
+    return;
+  }
+
+  document.body.style.overflow = 'hidden';
+  setTimeout(function () { input.focus(); }, 400);
+
+  function shake() {
+    input.classList.add('is-shake');
+    errorEl.classList.add('is-visible');
+    input.value = '';
+    setTimeout(function () {
+      input.classList.remove('is-shake');
+      input.focus();
+    }, 420);
+  }
+
+  function runCountdown() {
+    countdown.classList.add('is-active');
+    var n = 5;
+
+    /* Fade out gate content */
+    gsap.to('.gate__content', { opacity: 0, duration: 0.35, ease: 'power2.in' });
+
+    function tick() {
+      if (n < 0) {
+        /* Reveal site */
+        gsap.to(gate, {
+          opacity: 0, duration: 0.7, ease: 'power2.inOut',
+          onComplete: function () {
+            gate.style.display = 'none';
+            document.body.style.overflow = '';
+            sessionStorage.setItem('nk-unlocked', '1');
+          }
+        });
+        return;
+      }
+      var label = n === 0 ? '\u25BA' : String(n);
+      countdown.innerHTML = '<span class="gate__countdown-num">' + label + '</span>';
+      n--;
+      setTimeout(tick, 460);
+    }
+
+    tick();
+  }
+
+  function tryUnlock() {
+    if (input.value === PASSWORD) {
+      errorEl.classList.remove('is-visible');
+      runCountdown();
+    } else {
+      shake();
+    }
+  }
+
+  btn.addEventListener('click', tryUnlock);
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') tryUnlock();
+  });
+}());
+
+/* ================================================================
+   CUSTOM CURSOR
+================================================================ */
+(function () {
+  var dot      = document.getElementById('cursor');
+  var ring     = document.getElementById('cursorFollower');
+  if (!dot || !ring) return;
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+
+  var mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', function (e) {
+    mx = e.clientX;
+    my = e.clientY;
+    dot.style.transform = 'translate(' + (mx - 3) + 'px,' + (my - 3) + 'px)';
+  });
+
+  (function animateRing() {
+    rx += (mx - rx) * 0.11;
+    ry += (my - ry) * 0.11;
+    ring.style.transform = 'translate(' + (rx - 15) + 'px,' + (ry - 15) + 'px)';
+    requestAnimationFrame(animateRing);
+  }());
+
+  var hoverEls = document.querySelectorAll('a, button, .work__card, [role="button"]');
+  hoverEls.forEach(function (el) {
+    el.addEventListener('mouseenter', function () { document.body.classList.add('cursor-hover'); });
+    el.addEventListener('mouseleave', function () { document.body.classList.remove('cursor-hover'); });
+  });
+}());
+
+/* ================================================================
+   REEL MODAL
+================================================================ */
+(function () {
+  var modal    = document.getElementById('reelModal');
+  var video    = document.getElementById('reelVideo');
+  var openBtn  = document.getElementById('heroReelBtn');
+  var closeBtn = document.getElementById('reelClose');
+  var backdrop = document.getElementById('reelBackdrop');
+  if (!modal || !openBtn) return;
+
+  function open() {
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    if (video) video.play().catch(function () {});
+  }
+
+  function close() {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (video) { video.pause(); video.currentTime = 0; }
+  }
+
+  openBtn.addEventListener('click', open);
+  closeBtn.addEventListener('click', close);
+  backdrop.addEventListener('click', close);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') close();
+  });
+}());
+
+
+/* ================================================================
+   WORK INDEX — Hover image reveal
+================================================================ */
+(function () {
+  var items   = document.querySelectorAll('.work__index-item');
+  var imgs    = document.querySelectorAll('.work__index-img');
+  var list    = document.querySelector('.work__index-list');
+  if (!items.length || !imgs.length) return;
+
+  items.forEach(function (item) {
+    item.addEventListener('mouseenter', function () {
+      var idx = parseInt(item.dataset.img, 10);
+      imgs.forEach(function (img, i) {
+        img.classList.toggle('is-active', i === idx);
+      });
+    });
+  });
+
+  if (list) {
+    list.addEventListener('mouseleave', function () {
+      imgs.forEach(function (img) { img.classList.remove('is-active'); });
+    });
+  }
+}());
+
+
+/* ================================================================
+   FIXES: Cursor, Active Nav, UX Polish
+================================================================ */
+
+/* ---- 1. Cursor: hidden until first mouse move ---- */
+(function () {
+  var cursor   = document.getElementById('cursor');
+  var follower = document.getElementById('cursorFollower');
+  if (!cursor) return;
+
+  var activated = false;
+  document.addEventListener('mousemove', function activate() {
+    if (activated) return;
+    activated = true;
+    document.body.classList.add('cursor-ready');
+    document.removeEventListener('mousemove', activate);
+  }, { passive: true });
+}());
+
+/* ---- 2. Active nav link via IntersectionObserver ---- */
+(function () {
+  var sections = document.querySelectorAll('section[id], .director[id]');
+  var links    = document.querySelectorAll('.nav__link');
+  if (!sections.length || !links.length) return;
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var id = entry.target.getAttribute('id');
+        links.forEach(function (link) {
+          var active = link.getAttribute('href') === '#' + id;
+          link.classList.toggle('nav__link--active', active);
+        });
+      }
+    });
+  }, { threshold: 0.35, rootMargin: '-72px 0px 0px 0px' });
+
+  sections.forEach(function (s) { observer.observe(s); });
+}());
